@@ -1,30 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
+using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerM : MonoBehaviour
+public class PlayerM : NetworkBehaviour
 {
-    [SerializeField]private GameObject inputManager;
     private Rigidbody2D rb;
 
     [HideInInspector]public bool isWalking; 
     public float speed = 0;
 
     private void Start() {
-        inputManager = GameObject.FindGameObjectWithTag("GameController");
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate() {
+        if(!IsOwner) return;
+        Debug.Log("PlayerID");
         HandlePlayerMovment();
     }
     
     public void HandlePlayerMovment()
     {
-        Vector2 InputVector = inputManager.GetComponent<InputManager>().GetMovementVectorNormalized();
+        Vector2 InputVector = GetComponent<InputManager>().GetMovementVectorNormalized();
         isWalking = InputVector != Vector2.zero;
         rb.velocity = InputVector * speed * Time.deltaTime;
     }
-
 }

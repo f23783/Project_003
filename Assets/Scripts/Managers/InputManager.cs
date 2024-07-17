@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour
+public class InputManager : NetworkBehaviour
 {
     public Inputs inputs;
     public InputAction movement;
     
-    [SerializeField]private GameObject player1, player2;
-
     private void Awake() {
         inputs = new Inputs();
         inputs.Keyboard.Enable();
