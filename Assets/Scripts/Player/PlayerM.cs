@@ -18,7 +18,7 @@ public class PlayerM : NetworkBehaviour
 
     private void FixedUpdate() {
         if(!IsOwner) return;
-        Debug.Log("PlayerID");
+        //Debug.Log("PlayerID");
         HandlePlayerMovment();
     }
     

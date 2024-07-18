@@ -6,8 +6,7 @@ using UnityEngine;
 public class PlayerHealth : NetworkBehaviour
 {
     [SerializeField]private StatsSO statsSO;
-    [SerializeField]private NetworkVariable<float> health = new NetworkVariable<float>();
-
+    [SerializeField]private NetworkVariable<float> health = new NetworkVariable<float>(0,NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     private void Start() {
         health.Value = statsSO.Health;
@@ -15,10 +14,7 @@ public class PlayerHealth : NetworkBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (IsServer)
-        {
-            health.Value -= damage;
-        }
+        health.Value -= damage;
     }
 
 }

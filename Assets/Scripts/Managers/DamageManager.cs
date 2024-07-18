@@ -6,10 +6,21 @@ using UnityEngine;
 public class DamageManager : NetworkBehaviour
 {
     public static DamageManager instance;
+    public int i = 0;
 
-    private void Awake() {
-        instance = this;
+   private void Awake()
+{
+    if (instance != null && instance != this)
+    {
+        Destroy(gameObject);
     }
+    else
+    {
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+        Debug.Log("DamageManager singleton instance oluşturuldu.");
+    }
+}
 
     public void DealDamage(ulong targetClientId, float damage)
     {
@@ -24,9 +35,10 @@ public class DamageManager : NetworkBehaviour
         }
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void DealDamageServerRpc(ulong targetClientId, float damage)
     {
+        Debug.Log(targetClientId);
         DealDamage(targetClientId, damage);
     }
 }
