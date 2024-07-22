@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class InputManager : NetworkBehaviour
 {
     public Inputs inputs;
-    public InputAction movement;
+    public InputAction movement, stancesInput;
     
     private void Awake() {
         inputs = new Inputs();
@@ -16,6 +16,7 @@ public class InputManager : NetworkBehaviour
 
     private void Start() {
         movement = inputs.FindAction("Movement");
+        stancesInput = inputs.FindAction("Stances");
     }
 
 

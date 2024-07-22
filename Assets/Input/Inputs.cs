@@ -35,6 +35,15 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Stances"",
+                    ""type"": ""Button"",
+                    ""id"": ""8948fd56-315d-43de-a013-dc13cc9f4034"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -92,6 +101,39 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9072cff7-06b4-48cc-8556-89b457e845d5"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stances"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd16f8c0-365c-425a-beb0-79899cabb660"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stances"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""37c8bf86-117e-4e40-a69d-d6ea4f81df13"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stances"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -101,6 +143,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         // Keyboard
         m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
         m_Keyboard_Movement = m_Keyboard.FindAction("Movement", throwIfNotFound: true);
+        m_Keyboard_Stances = m_Keyboard.FindAction("Stances", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,11 +206,13 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Keyboard;
     private List<IKeyboardActions> m_KeyboardActionsCallbackInterfaces = new List<IKeyboardActions>();
     private readonly InputAction m_Keyboard_Movement;
+    private readonly InputAction m_Keyboard_Stances;
     public struct KeyboardActions
     {
         private @Inputs m_Wrapper;
         public KeyboardActions(@Inputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Keyboard_Movement;
+        public InputAction @Stances => m_Wrapper.m_Keyboard_Stances;
         public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -180,6 +225,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @Stances.started += instance.OnStances;
+            @Stances.performed += instance.OnStances;
+            @Stances.canceled += instance.OnStances;
         }
 
         private void UnregisterCallbacks(IKeyboardActions instance)
@@ -187,6 +235,9 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @Stances.started -= instance.OnStances;
+            @Stances.performed -= instance.OnStances;
+            @Stances.canceled -= instance.OnStances;
         }
 
         public void RemoveCallbacks(IKeyboardActions instance)
@@ -207,5 +258,6 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     public interface IKeyboardActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnStances(InputAction.CallbackContext context);
     }
 }
