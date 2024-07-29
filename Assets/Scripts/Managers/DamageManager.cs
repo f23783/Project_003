@@ -6,7 +6,6 @@ using UnityEngine;
 public class DamageManager : NetworkBehaviour
 {
     public static DamageManager instance;
-    public int i = 0;
 
    private void Awake()
 {

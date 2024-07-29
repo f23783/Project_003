@@ -9,8 +9,8 @@ public class Attack : NetworkBehaviour
 {
 
     public Vector2 halfExtents;
-    [HideInInspector]public float damage;
-    [HideInInspector]public float speed;
+    public float damage;
+    public float speed;
     [SerializeField]private LayerMask attackLayer;
     [HideInInspector]public Vector2 swordStartPos;
 
