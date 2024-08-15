@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 4763746199359675801}
   - component: {fileID: 924064455480141021}
   - component: {fileID: 8857490396773372992}
+  - component: {fileID: 4593464873225880935}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -111,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 6219981736335819606}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.978, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -150,7 +151,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.04, y: 0.1}
+  m_Offset: {x: 0.003, y: 0.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -175,13 +176,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e4723be15b4ca43977a27aa7e60f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   halfExtents: {x: 0, y: 0}
   damage: 0
-  speed: 0
+  speed: 10
+  rotation: 0
+  attackV: {x: 3, y: 0}
   attackLayer:
     serializedVersion: 2
     m_Bits: 1
   swordStartPos: {x: 0, y: 0}
+--- !u!114 &4593464873225880935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6219981736335819606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 0
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!1 &7237247596705995708
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +343,7 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   stancesInput:
-    m_Name: 
+    m_Name: Stances Input
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 7868a2f5-bfa7-4161-8978-0518ef597488
@@ -341,7 +376,7 @@ MonoBehaviour:
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
-  UseQuaternionSynchronization: 1
+  UseQuaternionSynchronization: 0
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
@@ -423,28 +458,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stancesList:
   - name: Balanced
-    attackVectors: []
+    attackVectors:
+    - {x: 3, y: 0}
+    attackRotation:
+    - {x: 0, y: 0, z: 0}
     attackBaseDamage: 0
-    attackSpeed: 0
+    attackSpeed: 10
     attackLength: 0
     attackWidth: 0
     stancesSwordStartPos: {x: 0, y: 0}
   - name: Fast
-    attackVectors: []
+    attackVectors:
+    - {x: 0, y: 0}
+    attackRotation:
+    - {x: 0, y: 0, z: 0}
     attackBaseDamage: 0
     attackSpeed: 0
     attackLength: 0
     attackWidth: 0
     stancesSwordStartPos: {x: 0, y: 0}
   - name: Attack
-    attackVectors: []
+    attackVectors:
+    - {x: 0, y: 0}
+    attackRotation:
+    - {x: 0, y: 0, z: 0}
     attackBaseDamage: 0
     attackSpeed: 0
     attackLength: 0
     attackWidth: 0
     stancesSwordStartPos: {x: 0, y: 0}
   - name: Defence
-    attackVectors: []
+    attackVectors:
+    - {x: 0, y: 0}
+    attackRotation:
+    - {x: 0, y: 0, z: 0}
     attackBaseDamage: 0
     attackSpeed: 0
     attackLength: 0
@@ -478,7 +525,7 @@ Transform:
   m_GameObject: {fileID: 8683848635634295100}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.039, y: 0.097, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 1.3375, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

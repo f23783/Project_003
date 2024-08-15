@@ -14,6 +14,7 @@ public class StancesClass
 {
     public string name;
     public List<Vector2> attackVectors = new List<Vector2>();
+    public List<Vector3> attackRotation = new List<Vector3>();
     public float attackBaseDamage;
     public float attackSpeed;
     public float attackLength;
@@ -32,15 +33,20 @@ public class AttackPaterns : NetworkBehaviour
     private void Start() {
         inputManager = GetComponent<InputManager>();
         attack = GetComponentInChildren<Attack>();
+        ChangeStance();
     }
 
-    public void ChangeStance(int currentStance)
+    public void ChangeStance(int currentStance = 0)
     {
         if (IsOwner)
         {
             attack.halfExtents = new Vector2(stancesList[currentStance].attackLength,stancesList[currentStance].attackWidth);
+
             attack.damage = stancesList[currentStance].attackBaseDamage;
+
             attack.speed = stancesList[currentStance].attackSpeed;
+
+            attack.rotation = stancesList[currentStance].attackRotation[0].z;
         }
     }
 }

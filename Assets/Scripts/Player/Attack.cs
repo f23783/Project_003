@@ -1,45 +1,34 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Mathematics;
 using Unity.Netcode;
 using UnityEngine;
 
 public class Attack : NetworkBehaviour
 {
-
+    public Rigidbody2D rb;
     public Vector2 halfExtents;
     public float damage;
     public float speed;
+    public float rotation;
+    public Vector2 attackV;
     [SerializeField]private LayerMask attackLayer;
     [HideInInspector]public Vector2 swordStartPos;
+    [HideInInspector]private bool test = false;
 
+    private void Start() {
+        
+    }
      private void Update()
     {
+        transform.rotation = Quaternion.Euler(0,0,rotation);
         if (IsOwner && Input.GetKeyDown(KeyCode.Space))
         {
-           // ApplyDamage();
-            Debug.Log("AA");
+            Test(0);
         }
     }
-    //Obje yeterince uzunsa diresel bir yörünge izlemesine gerek yok kendine hasar uygulayamaz bu yüzden sadece aşağı doğru bir haraket başalatmak oldukça mantıklı
-
-
-   /* public void ApplyDamage()
-    {
-        Debug.Log("Apply Damage Test");
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, halfExtents, 0f, attackLayer);
-        foreach (var item in colliders)
-        {
-            var targetPlayer = item.gameObject.GetComponent<NetworkObject>();
-            DamageManager.instance.DealDamageServerRpc(targetPlayer.OwnerClientId,damage);
-        }
-    }
-
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, halfExtents);
-    }*/
 
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject != IsOwner && other.gameObject.CompareTag("Player"))
@@ -47,6 +36,25 @@ public class Attack : NetworkBehaviour
             var targetPlayer = other.gameObject.GetComponent<NetworkObject>();
             DamageManager.instance.DealDamageServerRpc(targetPlayer.OwnerClientId,damage);
         }
+    }
+
+    public IEnumerator enumerator()
+    {
+        test = true;
+        yield return new WaitForSeconds(2);
+        Debug.Log("Waited 2 Seconds");
+        test = false;
+    }
+    public async void Test(int i)
+    {
+        test = true;
+        while (i == 10)
+        {
+            transform.position = Vector2.Lerp(transform.position, attackV , speed * Time.deltaTime);
+            Debug.Log("AA");
+            i++;
+        }
+        await Task.Yield();
     }
 }
 
